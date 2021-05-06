@@ -2,6 +2,10 @@
 
 > Gatsby plugin to support Obsidian markdown syntax
 
+## Requirements
+
+- Node.js >= 14
+
 ## Installation
 
 ```bash
