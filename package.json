@@ -1,0 +1,26 @@
+{
+  "name": "gatsby-remark-obsidian",
+  "version": "0.1.0",
+  "description": "Gatsby plugin to support Obsidian markdown syntax",
+  "homepage": "https://github.com/johackim/gatsby-remark-obsidian",
+  "repository": {
+      "type": "git",
+      "url": "https://github.com/johackim/gatsby-remark-obsidian.git"
+  },
+  "bugs": {
+      "url": "https://github.com/johackim/gatsby-remark-obsidian/issues"
+  },
+  "main": "index.js",
+  "keywords": [
+    "gatsby",
+    "remark",
+    "obsidian"
+  ],
+  "author": "johackim",
+  "license": "GPL-3.0",
+  "dependencies": {
+    "mdast-util-to-string": "^3.1.0",
+    "slugify": "^1.5.1",
+    "unist-util-visit": "^3.0.1"
+  }
+}
