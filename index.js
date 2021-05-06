@@ -1,6 +1,6 @@
-const visit = require('unist-util-visit');
-const toString = require('mdast-util-to-string');
-const slugify = require('slugify');
+import { visit } from 'unist-util-visit';
+import { toString } from 'mdast-util-to-string';
+import slugify from 'slugify';
 
 const defaultTitleToURL = (title) => {
     const segments = title.split('/');
@@ -8,7 +8,7 @@ const defaultTitleToURL = (title) => {
     return `${segments.join('/')}/${slugifiedTitle}`;
 };
 
-module.exports = ({ markdownAST }, options) => {
+export default ({ markdownAST }, options) => {
     const { titleToURL = defaultTitleToURL, stripBrackets = true, highlightClassName = '' } = options;
 
     visit(markdownAST, 'linkReference', (node, index, parent) => {
