@@ -8,7 +8,7 @@ const defaultTitleToURL = (title) => {
     return `${segments.join('/')}/${slugifiedTitle}`;
 };
 
-module.exports = ({ markdownAST }, options) => {
+module.exports = ({ markdownAST }, options = {}) => {
     const { titleToURL = defaultTitleToURL, stripBrackets = true, highlightClassName = '' } = options;
 
     visit(markdownAST, 'linkReference', (node, index, parent) => {

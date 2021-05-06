@@ -1,0 +1,17 @@
+{
+    "extends": "airbnb",
+    "env": {
+        "jest/globals": true
+    },
+    "parserOptions": {
+        "ecmaVersion": 2020
+    },
+    "rules": {
+        "indent": [2, 4, {"SwitchCase": 1}],
+        "no-param-reassign": [0],
+        "max-len": [0],
+    },
+    "plugins": [
+        "jest"
+    ]
+}
