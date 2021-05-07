@@ -1,6 +1,6 @@
 {
   "name": "gatsby-remark-obsidian",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "Gatsby plugin to support Obsidian markdown syntax",
   "homepage": "https://github.com/johackim/gatsby-remark-obsidian",
   "repository": {

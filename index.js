@@ -12,7 +12,7 @@ module.exports = ({ markdownAST }, options = {}) => {
         const previous = siblings[index - 1];
         const next = siblings[index + 1];
 
-        if (!previous?.value.includes('[') || !next?.value.includes(']')) {
+        if (!previous?.value?.includes('[') || !next?.value?.includes(']')) {
             return;
         }
 
