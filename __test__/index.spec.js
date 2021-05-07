@@ -28,7 +28,7 @@ test('Should support ==highlight text== with highlightClassName option', () => {
 });
 
 test('Should support [[Internal link]]', () => {
-    const text = '[[Internal link]]';
+    const text = 'Hello [[Internal link]] !';
     const markdownAST = remark.parse(text);
     const transformed = plugin({ markdownAST });
 
