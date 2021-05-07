@@ -4,7 +4,7 @@ const slugify = require('slugify');
 
 const defaultTitleToURL = (title) => {
     const segments = title.split('/');
-    const slugifiedTitle = slugify(segments.pop());
+    const slugifiedTitle = slugify(segments.pop(), { lower: true });
     return `${segments.join('/')}/${slugifiedTitle}`;
 };
 
