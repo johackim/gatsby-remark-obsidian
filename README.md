@@ -5,14 +5,15 @@ Gatsby plugin to support Obsidian markdown syntax.
 ## Requirements
 
 - Nodejs >= 14
+- [gatsby-plugin-mdx](https://www.gatsbyjs.com/plugins/gatsby-plugin-mdx/)
 
 ## Features
 
 - [x] Support `==highlight text==`
 - [x] Support `[[Internal link]]`
 - [x] Support `[[Internal link|With custom text]]`
-- [ ] Support `[[Internal link#heading]]`
-- [ ] Support `[[Internal link#heading|With custom text]]`
+- [x] Support `[[Internal link#heading]]`
+- [x] Support `[[Internal link#heading|With custom text]]`
 - [ ] Support `![[Embed note#heading]]`
 - [ ] Support `![[Embed note]]`
 

@@ -10,7 +10,7 @@ const toMDAST = requireFromMDX('remark-parse');
 
 const remark = new Remark().use(toMDAST);
 
-test('Should support ==highlight text==', async () => {
+test('Should support ==highlight text==', () => {
     const text = '==highlight text==';
     const markdownAST = remark.parse(text);
     const transformed = plugin({ markdownAST });
@@ -18,7 +18,7 @@ test('Should support ==highlight text==', async () => {
     expect(find(transformed, { type: 'html' }).value).toEqual('<p><mark className="">highlight text</mark></p>');
 });
 
-test('Should support ==highlight text== with highlightClassName option', async () => {
+test('Should support ==highlight text== with highlightClassName option', () => {
     const text = '==highlight text==';
     const markdownAST = remark.parse(text);
     const options = { highlightClassName: 'highlight' };
@@ -27,7 +27,7 @@ test('Should support ==highlight text== with highlightClassName option', async (
     expect(find(transformed, { type: 'html' }).value).toEqual('<p><mark className="highlight">highlight text</mark></p>');
 });
 
-test('Should support [[Internal link]]', async () => {
+test('Should support [[Internal link]]', () => {
     const text = '[[Internal link]]';
     const markdownAST = remark.parse(text);
     const transformed = plugin({ markdownAST });
@@ -38,7 +38,19 @@ test('Should support [[Internal link]]', async () => {
     expect(html).toContain('<a href="/internal-link" title="Internal link">Internal link</a>');
 });
 
-test('Should support [[Internal link|With custom text]]', async () => {
+test('Should support [[Internal link]] with titleToURL option', () => {
+    const text = '[[Internal link]]';
+    const markdownAST = remark.parse(text);
+    const options = { titleToURL: (title) => `/${title}` };
+    const transformed = plugin({ markdownAST }, options);
+
+    const hast = toHast(transformed);
+    const html = toHtml(hast);
+
+    expect(html).toContain('<a href="/Internal%20link" title="Internal link">Internal link</a>');
+});
+
+test('Should support [[Internal link|With custom text]]', () => {
     const text = '[[Internal link|With custom text]]';
     const markdownAST = remark.parse(text);
     const transformed = plugin({ markdownAST });
@@ -47,4 +59,26 @@ test('Should support [[Internal link|With custom text]]', async () => {
     const html = toHtml(hast);
 
     expect(html).toContain('<a href="/internal-link" title="Internal link">With custom text</a>');
+});
+
+test('Should support [[Internal link#heading]]', () => {
+    const text = '[[Internal link#heading]]';
+    const markdownAST = remark.parse(text);
+    const transformed = plugin({ markdownAST });
+
+    const hast = toHast(transformed);
+    const html = toHtml(hast);
+
+    expect(html).toContain('<a href="/internal-link#heading" title="Internal link">Internal link</a>');
+});
+
+test('Should support [[Internal link#heading|With custom text]]', () => {
+    const text = '[[Internal link#heading|With custom text]]';
+    const markdownAST = remark.parse(text);
+    const transformed = plugin({ markdownAST });
+
+    const hast = toHast(transformed);
+    const html = toHtml(hast);
+
+    expect(html).toContain('<a href="/internal-link#heading" title="Internal link">With custom text</a>');
 });

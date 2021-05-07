@@ -2,11 +2,7 @@ const visit = require('unist-util-visit');
 const toString = require('mdast-util-to-string');
 const slugify = require('slugify');
 
-const defaultTitleToURL = (title) => {
-    const segments = title.split('/');
-    const slugifiedTitle = slugify(segments.pop(), { lower: true });
-    return `${segments.join('/')}/${slugifiedTitle}`;
-};
+const defaultTitleToURL = (title) => `/${slugify(title, { lower: true })}`;
 
 module.exports = ({ markdownAST }, options = {}) => {
     const { titleToURL = defaultTitleToURL, stripBrackets = true, highlightClassName = '' } = options;
@@ -23,12 +19,20 @@ module.exports = ({ markdownAST }, options = {}) => {
         previous.value = previous.value.replace('[', '');
         next.value = next.value.replace(']', '');
 
+        let heading = '';
+        node.type = 'link';
+
+        if (node.label.match(/#/)) {
+            [node.children[0].value, heading] = node.label.split('#');
+            [heading] = heading.split('|');
+            node.label = node.label.replace(`#${heading}`, '');
+        }
+
         if (node.label.match(/\|/)) {
             [node.label, node.children[0].value] = node.label.split('|');
         }
 
-        node.type = 'link';
-        node.url = titleToURL(node.label);
+        node.url = `${titleToURL(node.label)}${heading && `#${heading}`}`;
         node.title = node.label;
 
         if (!stripBrackets) {
