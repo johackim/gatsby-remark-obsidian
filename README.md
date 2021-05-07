@@ -18,8 +18,8 @@ Gatsby plugin to support Obsidian markdown syntax.
 - [x] Support `[[Internal link|With custom text]]`
 - [x] Support `[[Internal link#heading]]`
 - [x] Support `[[Internal link#heading|With custom text]]`
+- [x] Support `![[Embed note]]`
 - [ ] Support `![[Embed note#heading]]`
-- [ ] Support `![[Embed note]]`
 
 ## Installation
 
@@ -40,6 +40,7 @@ Add the plugin to your Gatsby config:
                 resolve: 'gatsby-remark-obsidian',
                 options: {
                     titleToURL: (title) => `/${title}`, // optional
+                    markdownFolder: `${__dirname}/content`, // optional
                     highlightClassName: 'highlight', // optional
                 },
             },
@@ -47,3 +48,15 @@ Add the plugin to your Gatsby config:
     },
 },
 ```
+
+## Running the tests
+
+```bash
+npm test
+```
+
+## License
+
+This project is licensed under the GNU GPL v3.0 - see the [LICENSE](https://raw.githubusercontent.com/johackim/gatsby-remark-obsidian/master/LICENSE) file for details
+
+**Free Software, Hell Yeah!**

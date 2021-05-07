@@ -1,21 +1,33 @@
+const fs = require('fs');
+const Remark = require('remark');
 const visit = require('unist-util-visit');
 const toString = require('mdast-util-to-string');
 const slugify = require('slugify');
+const { createRequireFromPath } = require('gatsby-core-utils');
 
 const defaultTitleToURL = (title) => `/${slugify(title, { lower: true })}`;
 
-module.exports = ({ markdownAST }, options = {}) => {
-    const { titleToURL = defaultTitleToURL, stripBrackets = true, highlightClassName = '' } = options;
+const removeFrontmatter = (content) => content.replace(/^---[\s\S]+?---/, '');
+
+const requireFromMDX = createRequireFromPath(require.resolve('@mdx-js/mdx'));
+const toMDAST = requireFromMDX('remark-parse');
+const remark = new Remark().use(toMDAST);
+
+const plugin = ({ markdownAST }, options = {}) => {
+    const { titleToURL = defaultTitleToURL, stripBrackets = true, highlightClassName = '', markdownFolder = '' } = options;
 
     visit(markdownAST, 'linkReference', (node, index, parent) => {
         const siblings = parent.children;
         const previous = siblings[index - 1];
         const next = siblings[index + 1];
 
-        if (!previous?.value?.includes('[') || !next?.value?.includes(']')) {
+        const isEmbed = previous?.value?.includes('![');
+
+        if (!previous?.value?.includes('[', '![') || !next?.value?.includes(']')) {
             return;
         }
 
+        previous.value = previous.value.replace('![', '');
         previous.value = previous.value.replace('[', '');
         next.value = next.value.replace(']', '');
 
@@ -39,6 +51,17 @@ module.exports = ({ markdownAST }, options = {}) => {
             node.children[0].value = `[[${node.children[0].value}]]`;
         }
 
+        if (isEmbed && markdownFolder) {
+            const filePath = `${markdownFolder}/${node.title}.md`;
+
+            if (fs.existsSync(filePath)) {
+                const content = removeFrontmatter(fs.readFileSync(filePath, 'utf8'));
+                const embedAst = plugin({ markdownAST: remark.parse(content) });
+                parent.children.splice(index, 1);
+                embedAst.children.map((children) => parent.children.push(children));
+            }
+        }
+
         delete node.label;
         delete node.referenceType;
         delete node.identifier;
@@ -59,3 +82,5 @@ module.exports = ({ markdownAST }, options = {}) => {
 
     return markdownAST;
 };
+
+module.exports = plugin;

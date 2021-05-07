@@ -82,3 +82,16 @@ test('Should support [[Internal link#heading|With custom text]]', () => {
 
     expect(html).toContain('<a href="/internal-link#heading" title="Internal link">With custom text</a>');
 });
+
+test('Should support ![[Embed note]]', () => {
+    const text = '![[Embed note]]';
+    const markdownAST = remark.parse(text);
+    const options = { markdownFolder: `${__dirname}/fixtures` };
+    const transformed = plugin({ markdownAST }, options);
+
+    const hast = toHast(transformed);
+    const html = toHtml(hast);
+
+    expect(html).toContain('Hello world');
+    expect(html).not.toContain('Embed note');
+});
