@@ -1,5 +1,9 @@
 # gatsby-remark-obsidian
 
+[![Version](https://img.shields.io/github/v/tag/johackim/gatsby-remark-obsidian.svg?colorA=181C31&colorB=212839&label=version&sort=semver&style=flat-square)](https://github.com/johackim/gatsby-remark-obsidian/releases)
+[![License](https://img.shields.io/badge/license-GPL%20v3%2B-yellow.svg?style=flat-square&colorA=181C31&colorB=212839)](https://raw.githubusercontent.com/johackim/gatsby-remark-obsidian/master/LICENSE)
+[![Code Climate](https://img.shields.io/codeclimate/maintainability/johackim/gatsby-remark-obsidian.svg?style=flat-square&colorA=181C31&colorB=212839)](https://codeclimate.com/github/johackim/gatsby-remark-obsidian)
+
 Gatsby plugin to support Obsidian markdown syntax.
 
 ## Requirements
