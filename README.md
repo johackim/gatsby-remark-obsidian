@@ -32,21 +32,27 @@ npm install gatsby-remark-obsidian
 Add the plugin to your Gatsby config:
 
 ```js
-{
-    resolve: 'gatsby-plugin-mdx',
-    options: {
-        gatsbyRemarkPlugins: [
-            {
-                resolve: 'gatsby-remark-obsidian',
-                options: {
-                    titleToURL: (title) => `/${title}`, // optional
-                    markdownFolder: `${__dirname}/content`, // optional
-                    highlightClassName: 'highlight', // optional
-                },
+// gatsby-config.js
+module.exports = {
+    plugins: [
+        {
+            resolve: 'gatsby-plugin-mdx',
+            options: {
+                extensions: [.md'],
+                gatsbyRemarkPlugins: [
+                    {
+                        resolve: 'gatsby-remark-obsidian',
+                        options: {
+                            titleToURL: (title) => `/${title}`, // optional
+                            markdownFolder: `${__dirname}/content`, // optional
+                            highlightClassName: 'highlight', // optional
+                        },
+                    },
+                ],
             },
-        ],
-    },
-},
+        },
+    ],
+};
 ```
 
 ## Running the tests
