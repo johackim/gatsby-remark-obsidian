@@ -44,7 +44,7 @@ const plugin = ({ markdownAST }, options = {}) => {
             [node.label, node.children[0].value] = node.label.split('|');
         }
 
-        node.url = `${titleToURL(node.label)}${heading && `#${heading}`}`;
+        node.url = `${titleToURL(node.label)}${heading && `#${slugify(heading, { lower: true })}`}`;
         node.title = node.label;
 
         if (!stripBrackets) {
