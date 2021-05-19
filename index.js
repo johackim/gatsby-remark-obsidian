@@ -1,17 +1,14 @@
 const fs = require('fs');
-const Remark = require('remark');
 const visit = require('unist-util-visit');
 const toString = require('mdast-util-to-string');
 const slugify = require('slugify');
-const { createRequireFromPath } = require('gatsby-core-utils');
+const { createMdxAstCompiler } = require('@mdx-js/mdx');
 
 const defaultTitleToURL = (title) => `/${slugify(title, { lower: true })}`;
 
 const removeFrontmatter = (content) => content.replace(/^---[\s\S]+?---/, '');
 
-const requireFromMDX = createRequireFromPath(require.resolve('@mdx-js/mdx'));
-const toMDAST = requireFromMDX('remark-parse');
-const remark = new Remark().use(toMDAST);
+const compiler = createMdxAstCompiler({ remarkPlugins: [] });
 
 const plugin = ({ markdownAST }, options = {}) => {
     const { titleToURL = defaultTitleToURL, stripBrackets = true, highlightClassName = '', markdownFolder = '' } = options;
@@ -56,7 +53,7 @@ const plugin = ({ markdownAST }, options = {}) => {
 
             if (fs.existsSync(filePath)) {
                 const content = removeFrontmatter(fs.readFileSync(filePath, 'utf8'));
-                const embedAst = plugin({ markdownAST: remark.parse(content) });
+                const embedAst = plugin({ markdownAST: compiler.parse(content) });
                 parent.children.splice(index, 1);
                 embedAst.children.map((children) => parent.children.push(children));
             }
