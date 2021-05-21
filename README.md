@@ -9,7 +9,6 @@ Gatsby plugin to support Obsidian markdown syntax.
 ## Requirements
 
 - Nodejs >= 14
-- [gatsby-plugin-mdx](https://www.gatsbyjs.com/plugins/gatsby-plugin-mdx/)
 
 ## Features
 
@@ -33,26 +32,23 @@ Add the plugin to your Gatsby config:
 
 ```js
 // gatsby-config.js
-module.exports = {
-    plugins: [
-        {
-            resolve: 'gatsby-plugin-mdx',
-            options: {
-                extensions: [.md'],
-                gatsbyRemarkPlugins: [
-                    {
-                        resolve: 'gatsby-remark-obsidian',
-                        options: {
-                            titleToURL: (title) => `/${title}`, // optional
-                            markdownFolder: `${__dirname}/content`, // optional
-                            highlightClassName: 'highlight', // optional
-                        },
+plugins: [
+    {
+        resolve: "gatsby-transformer-remark",
+        options: {
+            plugins: [
+                {
+                    resolve: 'gatsby-remark-obsidian',
+                    options: {
+                        titleToURL: (title) => `/${title}`, // optional
+                        markdownFolder: `${__dirname}/content`, // optional
+                        highlightClassName: 'highlight', // optional
                     },
-                ],
-            },
-        },
-    ],
-};
+                },
+            ]
+        }
+    },
+],
 ```
 
 ## Running the tests
