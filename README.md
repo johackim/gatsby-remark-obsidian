@@ -51,6 +51,11 @@ plugins: [
 ],
 ```
 
+## Examples
+
+- [Example with remark](https://github.com/johackim/gatsby-remark-obsidian/tree/master/examples/remark)
+- [Example with mdx](https://github.com/johackim/gatsby-remark-obsidian/tree/master/examples/mdx)
+
 ## Running the tests
 
 ```bash
