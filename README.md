@@ -6,6 +6,8 @@
 
 Gatsby plugin to support Obsidian markdown syntax.
 
+NOTE: I also created a [non-gatsby plugin (remark-obsidian)](https://github.com/johackim/remark-obsidian) if you want 🙂.
+
 ## Requirements
 
 - Nodejs >= 14
